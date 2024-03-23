@@ -54,7 +54,7 @@ public class IndexBuilder {
                 .filter(p1 -> p1.getCode() == Node.OK)
                 .sorted(Comparator.comparingInt(Page::getId)).toList();
         for (Page page : pages) {
-            if (SiteBuilder.isStopping()) {
+            if (IndexingService.isStopping()) {
                 return;
             }
             Page pag;
@@ -116,7 +116,7 @@ public class IndexBuilder {
 
     public void saveLemmasAndIndices() {
         log.info(TABS + "Сайт \"" + site.getName() + "\": cохраняем леммы");
-        if (SiteBuilder.isStopping()) {
+        if (IndexingService.isStopping()) {
             return;
         }
         var lemmaCollection = lemmas.values();

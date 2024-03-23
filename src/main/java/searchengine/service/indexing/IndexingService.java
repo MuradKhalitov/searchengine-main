@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.concurrent.*;
 
 @Slf4j
-public class SiteBuilder implements Runnable {
+public class IndexingService implements Runnable {
     public static final boolean IS_INDEXING = true;
     private static ExecutorService executor;
     private static final ConcurrentHashMap<String, Site>
@@ -45,10 +45,10 @@ public class SiteBuilder implements Runnable {
     }
 
     public static void setStopping(boolean stopping) {
-        SiteBuilder.stopping = stopping;
+        IndexingService.stopping = stopping;
     }
 
-    public SiteBuilder(String siteUrl) {
+    public IndexingService(String siteUrl) {
         lastNodes = new ConcurrentLinkedQueue<>();
         forbiddenNodes = new CopyOnWriteArraySet<>();
         viewedPages = new HashSet<>();
@@ -64,7 +64,7 @@ public class SiteBuilder implements Runnable {
         site.setName(Configs.SiteConfig.getNameByUrl(siteUrl));
         site.setUrl(siteUrl);
         site.setStatusTime(LocalDateTime.now());
-        site.setSiteBuilder(this);
+        site.setIndexingService(this);
         site.setType(Site.INDEXING);
 
         Repos.siteRepo.saveAndFlush(site);
@@ -141,14 +141,14 @@ public class SiteBuilder implements Runnable {
             }
         }
 
-        SiteBuilder siteBuilder = new SiteBuilder(siteUrl);
+        IndexingService indexingService = new IndexingService(siteUrl);
 
-        Site processingSite = indexingSites.putIfAbsent(siteUrl, siteBuilder.site);
+        Site processingSite = indexingSites.putIfAbsent(siteUrl, indexingService.site);
         if (processingSite != null) {
             return;
         }
 
-        executor.execute(siteBuilder);
+        executor.execute(indexingService);
     }
 
     public static boolean startIndexing() {

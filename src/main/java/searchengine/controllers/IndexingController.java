@@ -2,7 +2,7 @@ package searchengine.controllers;
 
 import searchengine.dto.ErrorResponse;
 import searchengine.dto.Response;
-import searchengine.service.indexing.SiteBuilder;
+import searchengine.service.indexing.IndexingService;
 import searchengine.service.indexing.PageBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +13,7 @@ public class IndexingController {
 
     @GetMapping("/startIndexing")
     public Response startIndexing() {
-        boolean isIndexing = SiteBuilder.startIndexing();
+        boolean isIndexing = IndexingService.startIndexing();
         if (isIndexing) {
             return new ErrorResponse("Индексация уже запущена");
         }
@@ -31,7 +31,7 @@ public class IndexingController {
 
     @GetMapping("/stopIndexing")
     public Response stopIndexing() {
-        boolean isIndexing = SiteBuilder.stopIndexing();
+        boolean isIndexing = IndexingService.stopIndexing();
         if (isIndexing) {
             return new Response();
         }

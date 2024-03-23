@@ -3,7 +3,7 @@ package searchengine.dto.statistics;
 import lombok.Data;
 import searchengine.model.Site;
 import searchengine.repository.Repos;
-import searchengine.service.indexing.SiteBuilder;
+import searchengine.service.indexing.IndexingService;
 
 import java.util.List;
 
@@ -23,6 +23,6 @@ public class TotalStatistics {
         setHowManyPages(Repos.pageRepo.countBySites(indexedSites));
         setHowManyLemmas(Repos.lemmaRepo.countBySites(indexedSites));
 
-        setIndexing(!SiteBuilder.getIndexingSites().isEmpty());
+        setIndexing(!IndexingService.getIndexingSites().isEmpty());
     }
 }

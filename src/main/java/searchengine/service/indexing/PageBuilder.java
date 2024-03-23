@@ -103,7 +103,7 @@ public class PageBuilder implements Runnable {
             }
         }
 
-        SiteBuilder.getIndexingSites().remove(site.getUrl());
+        IndexingService.getIndexingSites().remove(site.getUrl());
     }
 
     public static String indexPage(String stringUrl) {
@@ -116,7 +116,7 @@ public class PageBuilder implements Runnable {
         String home = url.getProtocol() + "://" + url.getHost();
         String path = url.getFile();
 
-        if (SiteBuilder.getIndexingSites().containsKey(home)) {
+        if (IndexingService.getIndexingSites().containsKey(home)) {
             return RUNNING;
         }
 
@@ -126,7 +126,7 @@ public class PageBuilder implements Runnable {
         Site site = Repos.siteRepo.findByUrlAndType(home, Site.INDEXED).orElse(null);
 
         if (path.isEmpty()) {
-            SiteBuilder.buildSingleSite(home);
+            IndexingService.buildSingleSite(home);
         } else {
             if (site == null) {
                 return SITE_NOT_INDEXED;
@@ -135,7 +135,7 @@ public class PageBuilder implements Runnable {
             if (pageBuilder.page == null) {
                 return NOT_FOUND;
             }
-            SiteBuilder.getIndexingSites().put(site.getUrl(), site);
+            IndexingService.getIndexingSites().put(site.getUrl(), site);
             pageBuilder.run();
         }
 

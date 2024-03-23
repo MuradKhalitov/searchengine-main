@@ -29,7 +29,7 @@ public class PagesOfSiteBuilder extends RecursiveAction {
         takeABreak(pause);
         Document doc = node.processAndReturnPageDoc();
 
-        if (SiteBuilder.isStopping()) {
+        if (IndexingService.isStopping()) {
             return;
         }
 

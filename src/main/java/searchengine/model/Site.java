@@ -1,7 +1,7 @@
 package searchengine.model;
 
 import lombok.Data;
-import searchengine.service.indexing.SiteBuilder;
+import searchengine.service.indexing.IndexingService;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -46,7 +46,7 @@ public class Site implements Serializable {
     }
 
     @Transient
-    private SiteBuilder siteBuilder;
+    private IndexingService indexingService;
     @Transient
     private Long lastPageReadingTime = 0L;
 

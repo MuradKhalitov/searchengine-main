@@ -48,10 +48,10 @@ public class Node {
     public Node(Site site, String pagePath) {
         this.site = site;
         this.pagePath = pagePath;
-        if (site.getSiteBuilder() != null) {
-            viewedNodes = site.getSiteBuilder().getViewedPages();
-            lastNodes = site.getSiteBuilder().getLastNodes();
-            forbiddenNodes = site.getSiteBuilder().getForbiddenNodes();
+        if (site.getIndexingService() != null) {
+            viewedNodes = site.getIndexingService().getViewedPages();
+            lastNodes = site.getIndexingService().getLastNodes();
+            forbiddenNodes = site.getIndexingService().getForbiddenNodes();
             if (viewedNodes.isEmpty()) {
                 viewedNodes.add("/");
             }
@@ -63,7 +63,7 @@ public class Node {
     }
 
     public Document processAndReturnPageDoc() {
-        if (SiteBuilder.isStopping()) {
+        if (IndexingService.isStopping()) {
             return null;
         }
 
