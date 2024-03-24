@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 public class Configs {
     private Integer maxPagesInSite;
-    private List<CongifSite> sites;
+    private List<ConfigSite> sites;
 
     private static Boolean inited = false;
 
@@ -35,7 +35,7 @@ public class Configs {
     }
 
     public static void init() {
-        for (CongifSite sun : configs.sites) {
+        for (ConfigSite sun : configs.sites) {
             URL url;
             try {
                 url = new URL(sun.getUrl());
@@ -48,30 +48,30 @@ public class Configs {
 
     public static List<String> getAllSiteUrls() {
         List<String> siteUrls = new ArrayList<>();
-        List<CongifSite> urlNames = Configs.getConfigs().getSites();
+        List<ConfigSite> urlNames = Configs.getConfigs().getSites();
         urlNames.forEach(sun -> siteUrls.add(sun.getUrl()));
         return siteUrls;
     }
 
 
     @Data
-    public static class CongifSite {
+    public static class ConfigSite {
         private String url;
         private String name;
         private int pause;
 
         public static String getNameByUrl(String url) {
-            CongifSite congifSite = Configs.configs.sites.stream()
+            ConfigSite configSite = Configs.configs.sites.stream()
                     .filter(siteUrlName -> siteUrlName.getUrl().equals(url))
                     .findFirst().orElse(null);
-            return congifSite != null ? congifSite.getName() : "";
+            return configSite != null ? configSite.getName() : "";
         }
 
         public static int getPauseBySiteName(String name) {
-            CongifSite congifSite = Configs.configs.sites.stream()
+            ConfigSite configSite = Configs.configs.sites.stream()
                     .filter(siteUrlName -> siteUrlName.getName().equals(name))
                     .findFirst().orElse(null);
-            return congifSite != null ? congifSite.getPause() : 0;
+            return configSite != null ? configSite.getPause() : 0;
         }
     }
 

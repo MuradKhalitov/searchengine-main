@@ -69,7 +69,7 @@ public class IndexingService implements Runnable {
         }
 
         site = new Site();
-        site.setName(Configs.CongifSite.getNameByUrl(siteUrl));
+        site.setName(Configs.ConfigSite.getNameByUrl(siteUrl));
         site.setUrl(siteUrl);
         site.setStatusTime(LocalDateTime.now());
         site.setIndexingService(this);
@@ -103,8 +103,8 @@ public class IndexingService implements Runnable {
             return IS_INDEXING;
         }
 
-        List<Configs.CongifSite> congifSites = Configs.getConfigs().getSites();
-        for (Configs.CongifSite configSite : congifSites) {
+        List<Configs.ConfigSite> configSites = Configs.getConfigs().getSites();
+        for (Configs.ConfigSite configSite : configSites) {
             buildSite(configSite.getUrl());
         }
         return !IS_INDEXING;
@@ -169,7 +169,7 @@ public class IndexingService implements Runnable {
     }
 
     public static void buildSingleSite(String url) {
-        String siteName = Configs.CongifSite.getNameByUrl(url);
+        String siteName = Configs.ConfigSite.getNameByUrl(url);
         if (siteName.equals("")) {
             return;
         }

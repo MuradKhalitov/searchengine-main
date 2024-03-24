@@ -25,7 +25,7 @@ public class PagesOfSiteBuilder extends RecursiveAction {
             return;
         }
 
-        int pause = Configs.CongifSite.getPauseBySiteName(node.getSite().getName());
+        int pause = Configs.ConfigSite.getPauseBySiteName(node.getSite().getName());
         takeABreak(pause);
         Document doc = node.processAndReturnPageDoc();
 
