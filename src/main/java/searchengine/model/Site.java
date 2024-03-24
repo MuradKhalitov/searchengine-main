@@ -3,7 +3,7 @@ package searchengine.model;
 import lombok.Data;
 import searchengine.service.indexing.IndexingService;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashSet;

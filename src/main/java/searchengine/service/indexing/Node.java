@@ -157,7 +157,6 @@ public class Node {
 
         viewTagsA(body, children);
         viewAttributesOnclick(body, children);
-        //while (lastNodes.size() > Props.getInst().getRepeatedPageCount()) {
         while (lastNodes.size() > Runtime.getRuntime().availableProcessors()) {
             lastNodes.poll();
         }

@@ -4,13 +4,13 @@ import lombok.Data;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "lemma",
 //        uniqueConstraints={@UniqueConstraint(columnNames={"lemma", "site_id"},
 //                name = "UK_lemma_lemma_site")},
-        indexes = {@javax.persistence.Index(columnList = "lemma",
+        indexes = {@jakarta.persistence.Index(columnList = "lemma",
                 name = "KEY_lemma_lemma")})
 @Data
 public class Lemma {

@@ -1,6 +1,7 @@
 package searchengine.service.indexing;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 import searchengine.dto.statistics.StatisticsResponse;
 import searchengine.config.Configs;
 import searchengine.model.Site;
@@ -11,6 +12,7 @@ import java.util.*;
 import java.util.concurrent.*;
 
 @Slf4j
+@Service
 public class IndexingService implements Runnable {
     public static final boolean IS_INDEXING = true;
     private static ExecutorService executor;
@@ -48,6 +50,12 @@ public class IndexingService implements Runnable {
         IndexingService.stopping = stopping;
     }
 
+    public IndexingService() {
+        lastNodes = new ConcurrentLinkedQueue<>();
+        forbiddenNodes = new CopyOnWriteArraySet<>();
+        viewedPages = new HashSet<>();
+    }
+
     public IndexingService(String siteUrl) {
         lastNodes = new ConcurrentLinkedQueue<>();
         forbiddenNodes = new CopyOnWriteArraySet<>();
@@ -61,7 +69,7 @@ public class IndexingService implements Runnable {
         }
 
         site = new Site();
-        site.setName(Configs.SiteConfig.getNameByUrl(siteUrl));
+        site.setName(Configs.CongifSite.getNameByUrl(siteUrl));
         site.setUrl(siteUrl);
         site.setStatusTime(LocalDateTime.now());
         site.setIndexingService(this);
@@ -90,7 +98,33 @@ public class IndexingService implements Runnable {
             stopping = false;
         }
     }
+    public static boolean startIndexing() {
+        if (!indexingSites.isEmpty()) {
+            return IS_INDEXING;
+        }
 
+        List<Configs.CongifSite> congifSites = Configs.getConfigs().getSites();
+        for (Configs.CongifSite configSite : congifSites) {
+            buildSite(configSite.getUrl());
+        }
+        return !IS_INDEXING;
+    }
+    public static void buildSite(String siteUrl) {
+        synchronized (Executors.class) {
+            if (executor == null) {
+                executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() / 2);
+            }
+        }
+
+        IndexingService indexingService = new IndexingService(siteUrl);
+
+        Site processingSite = indexingSites.putIfAbsent(siteUrl, indexingService.site);
+        if (processingSite != null) {
+            return;
+        }
+
+        executor.execute(indexingService);
+    }
     private void buildPagesLemmasAndIndices() {
         long begin = System.currentTimeMillis();
         Site prevSite;
@@ -134,38 +168,8 @@ public class IndexingService implements Runnable {
         }
     }
 
-    public static void buildSite(String siteUrl) {
-        synchronized (Executors.class) {
-            if (executor == null) {
-                executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() / 2);
-            }
-        }
-
-        IndexingService indexingService = new IndexingService(siteUrl);
-
-        Site processingSite = indexingSites.putIfAbsent(siteUrl, indexingService.site);
-        if (processingSite != null) {
-            return;
-        }
-
-        executor.execute(indexingService);
-    }
-
-    public static boolean startIndexing() {
-        if (!indexingSites.isEmpty()) {
-            return IS_INDEXING;
-        }
-
-        List<Configs.SiteConfig> siteConfigList = Configs.getConfigs().getSites();
-        for (var siteProps : siteConfigList) {
-            buildSite(siteProps.getUrl());
-        }
-        return !IS_INDEXING;
-    }
-
-
     public static void buildSingleSite(String url) {
-        String siteName = Configs.SiteConfig.getNameByUrl(url);
+        String siteName = Configs.CongifSite.getNameByUrl(url);
         if (siteName.equals("")) {
             return;
         }
