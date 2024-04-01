@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
 
 spring.jpa.show-sql: false
 
@@ -7,11 +7,11 @@ spring:
   datasource:
     username: root
     password: Test1234
-    url: jdbc:mysql://localhost:3306/search_engine
+    url: jdbc:mysql://localhost:3306/search_engine2
     useSSL: false
     allowPublicKeyRetrieval: true
 
-  jpa.hibernate.ddl-auto: update
+  jpa.hibernate.ddl-auto: create
   jpa.properties.hibernate.enable_lazy_load_no_trans: true
 
   thymeleaf:

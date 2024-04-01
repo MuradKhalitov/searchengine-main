@@ -22,6 +22,7 @@ public class PagesOfSiteBuilder extends RecursiveAction {
 
         if (node.getSite().getPages().size() >=
                 Configs.getConfigs().getMaxPagesInSite()) {
+            node.getSite().setType(Site.INDEXED);
             return;
         }
 
