@@ -28,7 +28,7 @@ public class Lemma {
     private Site site;
 
     @Transient
-    private float weight;
+    private float weight = (float) 1.0f;
 
     @Override
     public boolean equals(Object obj) {

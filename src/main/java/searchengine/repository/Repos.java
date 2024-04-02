@@ -12,8 +12,6 @@ public class Repos {
     @Autowired
     private LemmaRepository lemmaRepository;
     @Autowired
-    private FieldRepository fieldRepository;
-    @Autowired
     private IndexRepository indexRepository;
     @Autowired
     private IndexRepositoryImpl indexRepositoryImpl;
@@ -21,7 +19,6 @@ public class Repos {
     public static SiteRepository siteRepo;
     public static PageRepository pageRepo;
     public static LemmaRepository lemmaRepo;
-    public static FieldRepository fieldRepo;
     public static IndexRepository indexRepo;
     public static IndexRepositoryImpl indexImplRepo;
 
@@ -29,7 +26,6 @@ public class Repos {
         siteRepo = siteRepository;
         pageRepo = pageRepository;
         lemmaRepo = lemmaRepository;
-        fieldRepo = fieldRepository;
         indexRepo = indexRepository;
         indexImplRepo = indexRepositoryImpl;
     }

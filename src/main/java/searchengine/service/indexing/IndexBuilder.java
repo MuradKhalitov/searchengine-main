@@ -19,17 +19,6 @@ public class IndexBuilder {
     private Map<Integer, Index> indices;
     private final Set<String> lemmasInPage;
 
-    private static List<Field> fields;
-
-    public static List<Field> getFields() {
-        synchronized (Field.class) {
-            if (fields == null) {
-                fields = Repos.fieldRepo.findAll();
-            }
-            return fields;
-        }
-    }
-
     public IndexBuilder(Site site, Page page, Map<String, Lemma> lemmas, Map<Integer, Index> indices) {
         this.site = site;
         this.page = page;
@@ -72,13 +61,18 @@ public class IndexBuilder {
 
     public void fillLemmasAndIndices() {
         Document doc = Jsoup.parse(page.getContent());
-        for (Field field : getFields()) {
-            Elements elements = doc.getElementsByTag(field.getSelector());
+        Map<String, Float> fields = new HashMap<>();
+        fields.put("title", 1.0f);
+        fields.put("body", 0.8f);
+        fields.put("h1", 0.1f);
+
+        for (Map.Entry<String, Float> field : fields.entrySet()) {
+            Elements elements = doc.getElementsByTag(field.getKey());
             for (Element element : elements) {
                 String text = element.text();
                 List<String> lemmaNames = Lemmatizator.decomposeTextToLemmas(text);
                 for (String lemmaName : lemmaNames) {
-                    insertIntoLemmasAndIndices(lemmaName, field.getWeight());
+                    insertIntoLemmasAndIndices(lemmaName, field.getValue());
                 }
             }
         }
