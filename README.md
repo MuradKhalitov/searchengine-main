@@ -151,4 +151,5 @@ https://github.com/MuradKhalitov/searchengine-main.
 <li>
 Установить фреймворк Apache Maven, если он ещё не установлен.
 </li>
+</ol>
 
