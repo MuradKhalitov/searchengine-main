@@ -27,7 +27,7 @@ public class IndexRepositoryImpl implements IndexRepositoryCustom {
         while (currIndex < indices.size()) {
             currIndex = buildInserts(indices, insertBuilder, currIndex);
 
-            String sql = "insert into search_engine2.index(page_id, lemma_id, search_engine2.index.rank)" +
+            String sql = "insert into search_engine.index(page_id, lemma_id, search_engine.index.rank)" +
                     " values " + insertBuilder;
             insertBuilder.setLength(0);
             Query query = entityManager.
