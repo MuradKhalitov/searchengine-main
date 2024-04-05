@@ -42,9 +42,9 @@ public class Lemmatizator {
 
     public static List<String> processOneWord(String word) {
         List<String> result = new ArrayList<>();
-        if (word.matches("[а-яА-Я]+")) {
-            word = word.toLowerCase(Locale.ROOT)
-                    .replaceAll("ё", "е");
+        word = word.toLowerCase(Locale.ROOT);
+        if (word.matches("[а-яё]+")) {
+            word = word.replaceAll("ё", "е");
             try {
                 List<String> infos = russianMorphology.getMorphInfo(word);
                 for (String info : infos) {
@@ -54,8 +54,7 @@ public class Lemmatizator {
                 }
             } catch (Exception e) {
             }
-        } else if (word.matches("[a-zA-Z]+")){
-            word = word.toLowerCase(Locale.ROOT);
+        } else if (word.matches("[a-z]+")){
             try {
                 List<String> infos = englishMorphology.getMorphInfo(word);
                 for (String info : infos) {
