@@ -3,7 +3,7 @@
 ##############################
 .mtj.tmp/
 *.class
-*.jar
+#*.jar
 *.war
 *.ear
 *.nar
@@ -38,4 +38,3 @@ out/
 *.gz
 /data/
 /.idea/
-!morphology/*.jar
