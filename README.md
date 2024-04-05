@@ -136,7 +136,7 @@ https://github.com/MuradKhalitov/searchengine-main.
 Установить СУБД MySql.
 </li>
 <li>
-В базе данных создать схему <i>search_engine</i>. Имя схемы может быть и
+В базе данных создать схему <i>search_engine</i> со следующими параметрами: <i>Charset<i/> = utf8mb4, <i>Collation<i/> = utf8mb4_unicode_ci . Имя схемы может быть и
 другим, но тогда это должно быть отражено в параметре
 <i>spring.datasource.url</i> в файле <i>application.yaml</i>.
 </li>
@@ -147,7 +147,7 @@ https://github.com/MuradKhalitov/searchengine-main.
 <i>spring.datasource.password</i> в файле <i>application.yaml</i>.
 </li>
 <li>
-Установить параметры <i>jpa.hibernate.ddl-auto</i>, как это описано выше.
+Установить параметры <i>jpa.hibernate.ddl-auto</i>, для первого запуска можно установить: "create", для дальнейшего можно установить "update".
 </li>
 <li>
 Установить фреймворк Apache Maven, если он ещё не установлен.
