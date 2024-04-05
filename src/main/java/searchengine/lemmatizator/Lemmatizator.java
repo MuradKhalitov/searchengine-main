@@ -2,6 +2,7 @@ package searchengine.lemmatizator;
 
 import org.apache.lucene.morphology.LuceneMorphology;
 import org.apache.lucene.morphology.russian.RussianLuceneMorphology;
+import org.apache.lucene.morphology.english.EnglishLuceneMorphology;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,11 +12,13 @@ import java.util.Locale;
 public class Lemmatizator {
     public static final String WORD_SEPARATORS =
             "\\s*(\\s|,|;|\\?|-|–|—|\\[|]|\\{|}|«|»|'|'|`|\"|!|\\.|\\(|\\))\\s*";
-    private final static LuceneMorphology morphology;
+    private final static LuceneMorphology russianMorphology;
+    private final static LuceneMorphology englishMorphology;
 
     static {
         try {
-            morphology = new RussianLuceneMorphology();
+            russianMorphology = new RussianLuceneMorphology();
+            englishMorphology = new EnglishLuceneMorphology();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -39,16 +42,29 @@ public class Lemmatizator {
 
     public static List<String> processOneWord(String word) {
         List<String> result = new ArrayList<>();
-        word = word.toLowerCase(Locale.ROOT)
-                .replaceAll("ё", "е");
-        try {
-            List<String> infos = morphology.getMorphInfo(word);
-            for (String info : infos) {
-                String lemma = morphInfoToLemma(info);
-                if (!lemma.isEmpty())
-                    result.add(lemma);
+        if (word.matches("[а-яА-Я]+")) {
+            word = word.toLowerCase(Locale.ROOT)
+                    .replaceAll("ё", "е");
+            try {
+                List<String> infos = russianMorphology.getMorphInfo(word);
+                for (String info : infos) {
+                    String lemma = morphInfoToLemma(info);
+                    if (!lemma.isEmpty())
+                        result.add(lemma);
+                }
+            } catch (Exception e) {
             }
-        } catch (Exception e) {
+        } else if (word.matches("[a-zA-Z]+")){
+            word = word.toLowerCase(Locale.ROOT);
+            try {
+                List<String> infos = englishMorphology.getMorphInfo(word);
+                for (String info : infos) {
+                    String lemma = morphInfoToLemma(info);
+                    if (!lemma.isEmpty())
+                        result.add(lemma);
+                }
+            } catch (Exception e) {
+            }
         }
         return result;
     }
