@@ -14,11 +14,11 @@ API со следующими основными функциями:
 
 ### Вкладка DASHBOARD
 <img src="./readme_assets/dashboard.png" width="80%"/><p>
-<img src="./readme_assets/detailstatistics.png" width="80%"/><p>
 Эта вкладка открывается по умолчанию. На ней
 отображается общая статистика по всем проиндексированным сайтам, а также
 детальная статистика и статус по каждому из сайтов (статистика,
 получаемая по запросу <i>/statistics</i>).
+<img src="./readme_assets/detailstatistics.png" width="80%"/><p>
 
 ### Вкладка MANAGEMENT
 <img src="./readme_assets/management.png" width="80%"/><p>
