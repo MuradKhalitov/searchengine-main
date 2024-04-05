@@ -72,13 +72,13 @@ p.error-browser
                             <span class="Tabs-linkText" th:text="#{menu.search}"></span></a>
                     </div>
                     <br>
-<!--                        <div></div>-->
-<!--                    <div th:text="#{menu.language}"></div>-->
-<!--                    <select id="locales">-->
-<!--                        <option value=" "></option>-->
-<!--                        <option value="en">English</option>-->
-<!--                        <option value="ru">Русский</option>-->
-<!--                    </select>-->
+                    <!--                        <div></div>-->
+                    <!--                    <div th:text="#{menu.language}"></div>-->
+                    <!--                    <select id="locales">-->
+                    <!--                        <option value=" "></option>-->
+                    <!--                        <option value="en">English</option>-->
+                    <!--                        <option value="ru">Русский</option>-->
+                    <!--                    </select>-->
                 </div>
                 <div class="Tabs-wrap">
                     <div class="Tabs-block" id="dashboard">
@@ -88,27 +88,31 @@ p.error-browser
                             </div>
                             <div class="Statistics">
                                 <div class="Statistics-info">
-                                    <div class="Statistics-block">
-                                        <span class="Statistics-title" th:text="#{dashboard.allSites}"></span>
-                                        <span class="Statistics-amount" id="totalSites"></span>
+                                    <div class="Statistics-block"><span class="Statistics-amount"
+                                                                        id="totalSites"></span><span
+                                            class="Statistics-title">sites</span>
                                     </div>
-                                    <div class="Statistics-block">
-                                        <span class="Statistics-title" th:text="#{dashboard.allPages}"></span>
-                                        <span class="Statistics-amount" id="totalPages"></span>
+                                    <div class="Statistics-block"><span class="Statistics-amount"
+                                                                        id="totalPages"></span><span
+                                            class="Statistics-title">pages</span>
                                     </div>
-                                    <div class="Statistics-block">
-                                        <span class="Statistics-title" th:text="#{dashboard.allLemmas}"></span>
-                                        <span class="Statistics-amount" id="totalLemmas"></span>
+                                    <div class="Statistics-block"><span class="Statistics-amount"
+                                                                        id="totalLemmas"></span><span
+                                            class="Statistics-title">lemmas</span>
                                     </div>
                                 </div>
                                 <div class="HideBlock Statistics-example">
                                     <header class="HideBlock-header HideBlock-trigger">
                                         <strong class="HideBlock-title"><span class="Statistics-status"></span>
                                         </strong>
-                                        <span class="HiddenElem" id="hiddenStatusTimeTitle" th:text="#{dashboard.statusTime}"></span>
-                                        <span class="HiddenElem" id="hiddenPagesTitle" th:text="#{dashboard.pages}"></span>
-                                        <span class="HiddenElem" id="hiddenLemmasTitle" th:text="#{dashboard.lemmas}"></span>
-                                        <span class="HiddenElem" id="hiddenErrorTitle" th:text="#{dashboard.error}"></span>
+                                        <span class="HiddenElem" id="hiddenStatusTimeTitle"
+                                              th:text="#{dashboard.statusTime}"></span>
+                                        <span class="HiddenElem" id="hiddenPagesTitle"
+                                              th:text="#{dashboard.pages}"></span>
+                                        <span class="HiddenElem" id="hiddenLemmasTitle"
+                                              th:text="#{dashboard.lemmas}"></span>
+                                        <span class="HiddenElem" id="hiddenErrorTitle"
+                                              th:text="#{dashboard.error}"></span>
                                         <button class="HideBlock-btn" type="button">
                                         </button>
                                     </header>
@@ -141,7 +145,7 @@ p.error-browser
                                     <div class="form-group form-group_row">
                                         <input class="form-input" id="page" name="page" type="text"/>
                                         <button class="btn btn_primary form-btn" type="submit"
-                                            th:text="#{management.addUpdate}">Add/update
+                                                th:text="#{management.addUpdate}">Add/update
                                         </button>
                                     </div>
                                 </form>
@@ -180,7 +184,8 @@ p.error-browser
                                 <div class="SearchResult-content">
                                 </div>
                                 <div class="HiddenElem" id="footerButtonText"
-                                    th:text="#{search.showMore}">Show more</div>
+                                     th:text="#{search.showMore}">Show more
+                                </div>
                                 <div class="SearchResult-footer SearchResult-footer_hide">
                                     <button class="btn btn_primary" data-send="search" data-sendtype="next">
                                         <span class="SearchResult-remain">(0)</span>

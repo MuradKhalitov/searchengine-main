@@ -9,19 +9,19 @@ import java.util.List;
 
 @Data
 public class TotalStatistics {
-    private int howManySites;
-    private int howManyPages;
-    private int howManyLemmas;
+    private int sites;
+    private int pages;
+    private int lemmas;
     private boolean indexing;
 
     public TotalStatistics() {
         int siteCount = Repos.siteRepo.countByType(Site.INDEXED) +
                 Repos.siteRepo.countByType(Site.FAILED);
-        setHowManySites(siteCount);
+        setSites(siteCount);
 
         List<Site> indexedSites = Repos.siteRepo.findAllByType(Site.INDEXED);
-        setHowManyPages(Repos.pageRepo.countBySites(indexedSites));
-        setHowManyLemmas(Repos.lemmaRepo.countBySites(indexedSites));
+        setPages(Repos.pageRepo.countBySites(indexedSites));
+        setLemmas(Repos.lemmaRepo.countBySites(indexedSites));
 
         setIndexing(!IndexingService.getIndexingSites().isEmpty());
     }
