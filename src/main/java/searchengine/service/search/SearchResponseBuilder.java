@@ -15,10 +15,10 @@ import java.util.concurrent.Executors;
 
 @Slf4j
 public class SearchResponseBuilder implements Runnable {
-    private static final Map<SearchRequest, SearchResponse> responses = new ConcurrentHashMap<>();
+    private static final Map<SearchRequestService, SearchResponse> responses = new ConcurrentHashMap<>();
     private static final ExecutorService executor = Executors.newCachedThreadPool();
 
-    private final SearchRequest request;
+    private final SearchRequestService request;
     private final SearchResponse response;
     private Site site = null;
     private final List<LemmaFrequency> lemmaFrequencies = new ArrayList<>();
@@ -27,7 +27,7 @@ public class SearchResponseBuilder implements Runnable {
     private List<PageRelevance> relevanceList;
 
 
-    public SearchResponseBuilder(SearchRequest request) {
+    public SearchResponseBuilder(SearchRequestService request) {
         this.request = request;
         response = responses.get(request);
     }
@@ -41,7 +41,7 @@ public class SearchResponseBuilder implements Runnable {
         request.setReady(true);
     }
 
-    public static SearchResponse receiveResponse(SearchRequest request) {
+    public static SearchResponse receiveResponse(SearchRequestService request) {
         removeOldResponses();
 
         request.setLastTime(System.currentTimeMillis() / 1000);
@@ -81,7 +81,7 @@ public class SearchResponseBuilder implements Runnable {
     }
 
     private static void removeOldResponses() {
-        for (Map.Entry<SearchRequest, SearchResponse> entry : responses.entrySet()) {
+        for (Map.Entry<SearchRequestService, SearchResponse> entry : responses.entrySet()) {
             long currentTime = System.currentTimeMillis() / 1000;
             if (currentTime - entry.getKey().getLastTime() > 90) {
                 responses.remove(entry.getKey());
@@ -89,7 +89,7 @@ public class SearchResponseBuilder implements Runnable {
         }
     }
 
-    private static SearchResponse formPartialResponse(SearchRequest request, SearchResponse response) {
+    private static SearchResponse formPartialResponse(SearchRequestService request, SearchResponse response) {
         SearchResponse partialResponse = new SearchResponse();
         partialResponse.setCount(response.getCount());
         for (int index = request.getOffset();

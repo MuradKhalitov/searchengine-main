@@ -7,10 +7,10 @@ import java.util.concurrent.SynchronousQueue;
 
 @Component
 public class SearchListener implements Runnable {
-    private static final SynchronousQueue<SearchRequest> requestQueue = new SynchronousQueue();
+    private static final SynchronousQueue<SearchRequestService> requestQueue = new SynchronousQueue();
     private static final SynchronousQueue<SearchResponse> responseQueue = new SynchronousQueue();
 
-    public static SynchronousQueue<SearchRequest> getRequestQueue() {
+    public static SynchronousQueue<SearchRequestService> getRequestQueue() {
         return requestQueue;
     }
 
@@ -25,7 +25,7 @@ public class SearchListener implements Runnable {
     @Override
     public void run() {
         for (; ; ) {
-            SearchRequest request;
+            SearchRequestService request;
             try {
                 request = requestQueue.take();
                 SearchResponse response = SearchResponseBuilder.receiveResponse(request);

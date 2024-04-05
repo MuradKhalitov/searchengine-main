@@ -1,6 +1,9 @@
 package searchengine.service.search;
 
 import lombok.Data;
+import org.springframework.stereotype.Service;
+import searchengine.dto.Response;
+import searchengine.dto.SearchResponse;
 import searchengine.lemmatizator.Lemmatizator;
 import searchengine.model.Site;
 import searchengine.repository.Repos;
@@ -10,7 +13,8 @@ import java.util.List;
 import java.util.Objects;
 
 @Data
-public class SearchRequest {
+@Service
+public class SearchRequestService {
     private List<String> queryWords = new ArrayList<>();
     private List<String> siteUrls = new ArrayList<>();
     private int offset;
@@ -26,15 +30,15 @@ public class SearchRequest {
 
     @Override
      public boolean equals(Object obj) {
-        if (obj == null || obj.getClass() != SearchRequest.class) {
+        if (obj == null || obj.getClass() != SearchRequestService.class) {
             return false;
         }
-        SearchRequest sr = (SearchRequest) obj;
+        SearchRequestService sr = (SearchRequestService) obj;
         return queryWords.size() == sr.queryWords.size() &&
                 siteUrls.size() == sr.siteUrls.size();
     }
 
-    public SearchRequest buildRequest(String query, String siteUrl, Integer offset, Integer limit) {
+    public SearchRequestService buildRequest(String query, String siteUrl, Integer offset, Integer limit) {
         queryWords = Lemmatizator.decomposeTextToLemmas(query);
         if (queryWords.isEmpty()) {
             return null;
@@ -49,5 +53,19 @@ public class SearchRequest {
         this.offset = offset == null ? 0 : offset;
         this.limit = limit == null ? 20 : limit;
         return this;
+    }
+    public Response receiveResponse(SearchRequestService request) {
+        SearchResponse response;
+        try {
+            SearchListener.getRequestQueue().put(request);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            response = SearchListener.getResponseQueue().take();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return response;
     }
 }
