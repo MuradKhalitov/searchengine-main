@@ -136,13 +136,11 @@ https://github.com/MuradKhalitov/searchengine-main.
 Установить СУБД MySql.
 </li>
 <li>
-В базе данных создать схему <i>search_engine</i> со следующими параметрами: <i>Charset<i/> = utf8mb4, <i>Collation<i/> = utf8mb4_unicode_ci . Имя схемы может быть и
-другим, но тогда это должно быть отражено в параметре
-<i>spring.datasource.url</i> в файле <i>application.yaml</i>.
+В базе данных создать схему <i>search_engine</i>.
 </li>
 <li>
-В схеме нужно создать пользователя <i>se_user</i> с паролем 
-<i>se_user</i>. Пользователь и пароль могут быть другими, это опять
+В схеме нужно создать пользователя <i>root</i> с паролем 
+<i>Test1234</i>. Пользователь и пароль могут быть другими, это опять
 же должно соответствовать параметрам <i>spring.datasource.username</i> и 
 <i>spring.datasource.password</i> в файле <i>application.yaml</i>.
 </li>
