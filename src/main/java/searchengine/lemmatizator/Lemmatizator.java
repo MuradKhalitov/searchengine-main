@@ -42,28 +42,24 @@ public class Lemmatizator {
 
     public static List<String> processOneWord(String word) {
         List<String> result = new ArrayList<>();
+        List<String> infos = new ArrayList<>();
         word = word.toLowerCase(Locale.ROOT);
         if (word.matches("[а-яё]+")) {
             word = word.replaceAll("ё", "е");
             try {
-                List<String> infos = russianMorphology.getMorphInfo(word);
-                for (String info : infos) {
-                    String lemma = morphInfoToLemma(info);
-                    if (!lemma.isEmpty())
-                        result.add(lemma);
-                }
+                infos = russianMorphology.getMorphInfo(word);
             } catch (Exception e) {
             }
         } else if (word.matches("[a-z]+")){
             try {
-                List<String> infos = englishMorphology.getMorphInfo(word);
-                for (String info : infos) {
-                    String lemma = morphInfoToLemma(info);
-                    if (!lemma.isEmpty())
-                        result.add(lemma);
-                }
+                infos = englishMorphology.getMorphInfo(word);
             } catch (Exception e) {
             }
+        }
+        for (String info : infos) {
+            String lemma = morphInfoToLemma(info);
+            if (!lemma.isEmpty())
+                result.add(lemma);
         }
         return result;
     }
