@@ -29,6 +29,10 @@
     <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
+    <script>
+     var backendApiUrl = 'api'
+  </script>
+
     <script defer src="/assets/js/scripts.js?v=3TabsLink8874865"></script>
 
 </head>
@@ -183,12 +187,11 @@ p.error-browser
                                 </strong>
                                 <div class="SearchResult-content">
                                 </div>
-                                <div class="HiddenElem" id="footerButtonText"
-                                     th:text="#{search.showMore}">Show more
-                                </div>
+<!--                                <div class="HiddenElem" id="footerButtonText"-->
+<!--                                     th:text="#{search.showMore}">Show more-->
+<!--                                </div>-->
                                 <div class="SearchResult-footer SearchResult-footer_hide">
-                                    <button class="btn btn_primary" data-send="search" data-sendtype="next">
-                                        <span class="SearchResult-remain">(0)</span>
+                                    <button class="btn btn_primary" data-send="search" data-sendtype="next">Show more<span class="SearchResult-remain">(0)</span>
                                     </button>
                                 </div>
                             </div>
