@@ -2,6 +2,7 @@ package searchengine.controllers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
 import searchengine.dto.ErrorResponse;
 import searchengine.dto.Response;
 import searchengine.service.search.SearchRequestService;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
+@RequestMapping("/api")
 public class SearchController {
     @Autowired
     SearchRequestService searchRequestService;

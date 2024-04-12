@@ -1,7 +1,7 @@
 package searchengine.repository;
 
 import lombok.extern.slf4j.Slf4j;
-import searchengine.model.Index;
+import searchengine.model.Indecs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +19,7 @@ public class IndexRepositoryImpl implements IndexRepositoryCustom {
     public static final String TABS = "\t\t";
 
     @Override
-    public void insertIndexList(String siteName, List<Index> indices) {
+    public void insertIndexList(String siteName, List<Indecs> indices) {
         int ONE_THOUSAND = 1000;
         int SAVING_PORTION = 100 * ONE_THOUSAND;
         StringBuilder insertBuilder = new StringBuilder();
@@ -43,13 +43,13 @@ public class IndexRepositoryImpl implements IndexRepositoryCustom {
         }
     }
 
-    private int buildInserts(List<Index> indices, StringBuilder insertBuilder, int currIndex) {
+    private int buildInserts(List<Indecs> indices, StringBuilder insertBuilder, int currIndex) {
         for (int i = 0; i++ < 100_000 && currIndex < indices.size(); currIndex++) {
-            Index index = indices.get(currIndex);
+            Indecs indecs = indices.get(currIndex);
             insertBuilder.append(insertBuilder.length() == 0 ? "" : ",")
-                    .append("(").append(index.getPage().getId())
-                    .append(",").append(index.getLemma().getId())
-                    .append(",").append(index.getRank()).append(")");
+                    .append("(").append(indecs.getPage().getId())
+                    .append(",").append(indecs.getLemma().getId())
+                    .append(",").append(indecs.getRank()).append(")");
         }
         return currIndex;
     }

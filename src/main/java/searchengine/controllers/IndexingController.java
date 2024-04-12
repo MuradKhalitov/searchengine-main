@@ -1,14 +1,13 @@
 package searchengine.controllers;
 
+import org.springframework.web.bind.annotation.*;
 import searchengine.dto.ErrorResponse;
 import searchengine.dto.Response;
 import searchengine.service.indexing.IndexingService;
 import searchengine.service.indexing.PageBuilder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+
 @RestController
+@RequestMapping("/api")
 public class IndexingController {
     private IndexingService indexingService;
     public IndexingController(IndexingService indexingService) {

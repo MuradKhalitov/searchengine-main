@@ -11,7 +11,7 @@ import jakarta.persistence.*;
 @NoArgsConstructor
 @Table(name = "`index`")
 @Data
-public class Index {
+public class Indecs {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -26,7 +26,7 @@ public class Index {
     @Column(name = "`rank`", nullable = false)
     private float rank;
 
-    public Index(Page page, Lemma lemma, float rank) {
+    public Indecs(Page page, Lemma lemma, float rank) {
         this.page = page;
         this.lemma = lemma;
         this.rank = rank;
@@ -37,7 +37,7 @@ public class Index {
         if (obj.getClass() != getClass()) {
             return false;
         }
-        Index i = (Index) obj;
+        Indecs i = (Indecs) obj;
         return id == i.id;
     }
 

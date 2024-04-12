@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "page")
+@Table(name = "page", indexes = {@Index(name = "idx_page_path", columnList = "path")})
 @Data
 public class Page implements Serializable {
     @Id
@@ -18,7 +18,7 @@ public class Page implements Serializable {
     @JoinColumn(name = "site_id", nullable = false, foreignKey = @ForeignKey(name = "FK_page_site"))
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Site site;
-    @Column(columnDefinition = "text", nullable = false)
+    @Column(columnDefinition = "VARCHAR(255)", nullable = false)
     private String path;
     @Column(nullable = false)
     private int code;

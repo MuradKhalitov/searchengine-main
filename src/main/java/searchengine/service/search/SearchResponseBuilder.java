@@ -3,7 +3,7 @@ package searchengine.service.search;
 import lombok.extern.slf4j.Slf4j;
 import searchengine.dto.PageData;
 import searchengine.dto.SearchResponse;
-import searchengine.model.Index;
+import searchengine.model.Indecs;
 import searchengine.model.Page;
 import searchengine.model.Site;
 import searchengine.repository.Repos;
@@ -142,17 +142,17 @@ public class SearchResponseBuilder implements Runnable {
     }
 
     private void defineRelevancesForFirstLemma(String lemma) {
-        List<Index> indices = site != null ?
+        List<Indecs> indices = site != null ?
                 Repos.indexRepo.findAllByTextLemmaAndSite(lemma, site) :
                 Repos.indexRepo.findAllByTextLemma(lemma);
-        for (Index index : indices) {
-            PageRelevance relevance = relevanceMap.get(index.getPage().getId());
+        for (Indecs indecs : indices) {
+            PageRelevance relevance = relevanceMap.get(indecs.getPage().getId());
             if (relevance == null) {
                 relevance = new PageRelevance();
-                relevance.setPage(index.getPage());
-                relevanceMap.put(index.getPage().getId(), relevance);
+                relevance.setPage(indecs.getPage());
+                relevanceMap.put(indecs.getPage().getId(), relevance);
             }
-            LemmaRank lemmaRank = new LemmaRank(lemma, index.getRank());
+            LemmaRank lemmaRank = new LemmaRank(lemma, indecs.getRank());
             relevance.getLemmaRanks().add(lemmaRank);
         }
         relevanceSet = new HashSet<>(relevanceMap.values());
@@ -160,15 +160,15 @@ public class SearchResponseBuilder implements Runnable {
 
     private void defineRelevancesForNextLemmas(String lemma) {
         Set<PageRelevance> lemmaRelevances = new HashSet<>();
-        List<Index> indices = site != null ?
+        List<Indecs> indices = site != null ?
                 Repos.indexRepo.findAllByTextLemmaAndSite(lemma, site) :
                 Repos.indexRepo.findAllByTextLemma(lemma);
-        for (Index index : indices) {
-            PageRelevance relevance = relevanceMap.get(index.getPage().getId());
+        for (Indecs indecs : indices) {
+            PageRelevance relevance = relevanceMap.get(indecs.getPage().getId());
             if (!relevanceSet.contains(relevance)) {
                 continue;
             }
-            LemmaRank lemmaRank = new LemmaRank(lemma, index.getRank());
+            LemmaRank lemmaRank = new LemmaRank(lemma, indecs.getRank());
             relevance.getLemmaRanks().add(lemmaRank);
             lemmaRelevances.add(relevance);
         }

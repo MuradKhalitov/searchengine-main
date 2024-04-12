@@ -2,7 +2,7 @@ package searchengine.service.indexing;
 
 import lombok.extern.slf4j.Slf4j;
 import searchengine.config.Configs;
-import searchengine.model.Index;
+import searchengine.model.Indecs;
 import searchengine.model.Lemma;
 import searchengine.model.Page;
 import searchengine.model.Site;
@@ -58,10 +58,10 @@ public class PageBuilder implements Runnable {
             lemmas.put(lemma.getLemma(), lemma);
         }
 
-        List<Index> indexList = Repos.indexRepo.findAllBySite(site);
-        Map<Integer, Index> indices = new HashMap<>();
-        for (Index index : indexList) {
-            indices.put(index.hashCode(), index);
+        List<Indecs> indecsList = Repos.indexRepo.findAllBySite(site);
+        Map<Integer, Indecs> indices = new HashMap<>();
+        for (Indecs indecs : indecsList) {
+            indices.put(indecs.hashCode(), indecs);
         }
 
         IndexBuilder indexBuilder = new IndexBuilder(site, page, lemmas, indices);
@@ -70,10 +70,10 @@ public class PageBuilder implements Runnable {
         List<Lemma> lemmasToDelete = new ArrayList<>();
         if (oldPages != null && oldPages.size() > 0) {
             List<Integer> oldPageIds = oldPages.stream().map(p -> p.getId()).toList();
-            for (Index index : indices.values().stream()
+            for (Indecs indecs : indices.values().stream()
                     .filter(index -> oldPageIds.contains(index.getPage().getId()))
                     .toList()) {
-                Lemma lemma = index.getLemma();
+                Lemma lemma = indecs.getLemma();
                 lemma.setFrequency(lemma.getFrequency() - 1);
                 if (lemma.getFrequency() == 0) {
                     lemmas.remove(lemma.getLemma());
@@ -84,7 +84,7 @@ public class PageBuilder implements Runnable {
 
         Repos.lemmaRepo.deleteAllInBatch(lemmasToDelete);
 
-        List<Index> pageIndices = new ArrayList<>();
+        List<Indecs> pageIndices = new ArrayList<>();
         pageIndices.addAll(indices.values().stream()
                 .filter(index -> index.getPage().getId() == page.getId())
                 .toList());

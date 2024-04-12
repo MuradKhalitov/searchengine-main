@@ -243,7 +243,7 @@ table().init();
 var API = function(){
     function sendData(address, type, data, cb, $this) {
         $.ajax({
-            url: address,
+            url: backendApiUrl + address,
             type: type,
             dataType: 'json',
             data: data,

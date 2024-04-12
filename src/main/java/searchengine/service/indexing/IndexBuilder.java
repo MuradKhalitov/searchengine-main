@@ -16,10 +16,10 @@ public class IndexBuilder {
     private final Site site;
     private final Page page;
     private Map<String, Lemma> lemmas;
-    private Map<Integer, Index> indices;
+    private Map<Integer, Indecs> indices;
     private final Set<String> lemmasInPage;
 
-    public IndexBuilder(Site site, Page page, Map<String, Lemma> lemmas, Map<Integer, Index> indices) {
+    public IndexBuilder(Site site, Page page, Map<String, Lemma> lemmas, Map<Integer, Indecs> indices) {
         this.site = site;
         this.page = page;
         this.lemmas = lemmas;
@@ -88,21 +88,21 @@ public class IndexBuilder {
             lemma.setWeight(weight);
             lemmas.put(lemmaName, lemma);
 
-            Index index = new Index(page, lemma, weight);
-            indices.put(index.hashCode(), index);
+            Indecs indecs = new Indecs(page, lemma, weight);
+            indices.put(indecs.hashCode(), indecs);
 
             lemmasInPage.add(lemmaName);
             return;
         }
         if (lemmasInPage.contains(lemmaName)) {
-            Index auxIndex = new Index(page, lemma, 0);
-            Index index = indices.get(auxIndex.hashCode());
-            index.setRank(index.getRank() + weight);
+            Indecs auxIndecs = new Indecs(page, lemma, 0);
+            Indecs indecs = indices.get(auxIndecs.hashCode());
+            indecs.setRank(indecs.getRank() + weight);
         } else {
             lemmasInPage.add(lemmaName);
             lemma.setFrequency(lemma.getFrequency() + 1);
-            Index index = new Index(page, lemma, weight);
-            indices.put(index.hashCode(), index);
+            Indecs indecs = new Indecs(page, lemma, weight);
+            indices.put(indecs.hashCode(), indecs);
         }
     }
 
@@ -126,7 +126,7 @@ public class IndexBuilder {
     }
 
     private void saveIndicesByMultipleInsert() {
-        List<Index> siteIndices = indices.values().stream()
+        List<Indecs> siteIndices = indices.values().stream()
                 .filter(index -> index.getPage().getSite().getId() == site.getId()
                         && index.getPage().getCode() == Node.OK)
                 .toList();
@@ -134,7 +134,7 @@ public class IndexBuilder {
             return;
         }
         String siteName = site.getName();
-        synchronized (Index.class) {
+        synchronized (Indecs.class) {
             Repos.indexImplRepo.insertIndexList(siteName, siteIndices);
         }
     }
