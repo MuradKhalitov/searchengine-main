@@ -211,16 +211,22 @@ public class Node {
                 attrContent = attrContent.substring(begin, end);
 
                 String contLow = attrContent.toLowerCase(Locale.ROOT);
+                boolean skip = false;
                 for (String ext : EXTEMSIONS_TO_SKIP) {
                     if (contLow.contains(ext)) {
-                        continue;
+                        skip = true;
+                        break;
                     }
                 }
 
+                if (skip) {
+                    continue;
+                }
                 permissabilitySupport(attrContent, children);
             }
         }
     }
+
 
     private static Integer viewedPagesMonitor = 0;
 

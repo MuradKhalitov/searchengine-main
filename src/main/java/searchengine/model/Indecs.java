@@ -19,7 +19,7 @@ public class Indecs {
     @JoinColumn(name = "page_id", nullable = false, foreignKey=@ForeignKey(name = "FK_index_page"))
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Page page;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "lemma_id", nullable = false, foreignKey=@ForeignKey(name = "FK_index_lemma"))
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Lemma lemma;

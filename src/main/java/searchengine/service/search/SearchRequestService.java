@@ -45,8 +45,10 @@ public class SearchRequestService {
         }
 
         if (siteUrl == null) {
-            Repos.siteRepo.findAllByType(Site.INDEXED)
-                    .forEach(site -> siteUrls.add(site.getUrl()));
+            List<Site> indexedSites = Repos.siteRepo.findAllByType(Site.INDEXED);
+            for (Site site : indexedSites) {
+                siteUrls.add(site.getUrl());
+            }
         } else {
             siteUrls.add(siteUrl);
         }

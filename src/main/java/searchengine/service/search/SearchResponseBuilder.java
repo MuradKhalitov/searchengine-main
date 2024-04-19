@@ -1,8 +1,7 @@
 package searchengine.service.search;
 
 import lombok.extern.slf4j.Slf4j;
-import searchengine.dto.PageData;
-import searchengine.dto.SearchResponse;
+import searchengine.dto.*;
 import searchengine.model.Indecs;
 import searchengine.model.Page;
 import searchengine.model.Site;

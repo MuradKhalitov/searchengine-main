@@ -38,8 +38,6 @@ public class IndexingService implements Runnable {
     public Set<String> getViewedPages() {
         return viewedPages;
     }
-
-    private static final boolean SINGLE_SITE_IS_INDEXING = true;
     private static boolean stopping = false;
 
     public static boolean isStopping() {
@@ -127,7 +125,6 @@ public class IndexingService implements Runnable {
     }
     private void buildPagesLemmasAndIndices() {
         long begin = System.currentTimeMillis();
-        Site prevSite;
         PagesOfSiteBuilder.build(site);
         if (isStopping()) {
             return;
