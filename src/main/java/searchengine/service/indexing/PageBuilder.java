@@ -18,7 +18,7 @@ import java.util.Map;
 
 @Slf4j
 public class PageBuilder implements Runnable {
-    public static final String OK = "OK";
+    public static final String SUCCESS_CODE = "OK";
     public static final String NOT_FOUND = "\"Данная страница находится за пределами сайтов, " +
             "указанных в конфигурационном файле";
     public static final String SITE_NOT_INDEXED = "Нельзя индексировать страницу " +
@@ -139,6 +139,6 @@ public class PageBuilder implements Runnable {
             pageBuilder.run();
         }
 
-        return OK;
+        return SUCCESS_CODE;
     }
 }
