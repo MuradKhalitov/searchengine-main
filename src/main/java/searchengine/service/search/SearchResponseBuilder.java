@@ -24,6 +24,7 @@ public class SearchResponseBuilder implements Runnable {
     private Set<PageRelevance> relevanceSet;
     private final Map<Integer /*page.id*/, PageRelevance> relevanceMap = new HashMap<>();
     private List<PageRelevance> relevanceList;
+    private int MAX_SNIPPET_LENGTH = 400;
 
 
     public SearchResponseBuilder(SearchRequestService request) {
@@ -208,6 +209,7 @@ public class SearchResponseBuilder implements Runnable {
             PageRelevance relevance = relevanceList.get(pageDataNumber);
             Page page = relevance.getPage();
             String snippet = new Snippet(page, request.getQueryWords()).formSnippet();
+            snippet = snippet.length() <= MAX_SNIPPET_LENGTH ? snippet : snippet.substring(0, MAX_SNIPPET_LENGTH);
             Site site = page.getSite();
             data.setSite(site.getUrl());
             data.setSiteName(site.getName());
