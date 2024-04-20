@@ -10,6 +10,7 @@ import searchengine.service.indexing.PageBuilder;
 @RequestMapping("/api")
 public class IndexingController {
     private IndexingService indexingService;
+
     public IndexingController(IndexingService indexingService) {
         this.indexingService = indexingService;
     }
@@ -26,7 +27,7 @@ public class IndexingController {
     @PostMapping("/indexPage")
     public Response indexPage(@RequestParam(required = false) String url) {
         String result = PageBuilder.indexPage(url);
-        if (result.equals(PageBuilder.OK)) {
+        if (result.equals(PageBuilder.SUCCESS_CODE)) {
             return new Response();
         }
         return new ErrorResponse(result);

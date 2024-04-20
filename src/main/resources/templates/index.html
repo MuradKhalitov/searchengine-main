@@ -15,10 +15,6 @@
     <meta name="description" content="Site Search Engine">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-    <!--meta( http-equiv="cache-control" content="no-cache")-->
-    <!--meta( http-equiv="expires" content="0")-->
-    <!--link(rel="preload" href="assets/css/extra.min.css?v=" + version as="style" crossorigin="anonymous")-->
-    <!--  <link href="favicon.ico" rel="shortcut icon">-->
     <link rel="preload" href="/assets/fonts/Montserrat/Montserrat-SemiBold.woff2" as="font" crossorigin="anonymous">
     <link rel="preload" href="/assets/fonts/Montserrat/Montserrat-Light.woff2" as="font" crossorigin="anonymous">
     <link rel="preload" href="/assets/fonts/Montserrat/Montserrat-Medium.woff2" as="font" crossorigin="anonymous">
@@ -26,26 +22,18 @@
     <link rel="stylesheet" href="/assets/css/fonts.css?v=82368483">
     <link rel="stylesheet" href="/assets/css/basic.css?v=82368483">
     <link rel="stylesheet" href="/assets/css/extra.css?v=82368483">
-    <!--[if lt IE 9]>
-    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
     <script>
      var backendApiUrl = 'api'
-  </script>
+
+    </script>
 
     <script defer src="/assets/js/scripts.js?v=3TabsLink8874865"></script>
 
 </head>
 <body class="Site">
-<!--if lt IE 8
-p.error-browser
-    | Ваш браузер&nbsp;
-    em устарел!&nbsp;
-    a(href="http://browsehappy.com/") Выберите новую версию
-        +s
-        | браузера здесь&nbsp;
-    | для правильного отображения сайта.
--->
 
 <div class="Site-loader">
     <div class="Site-loader-block">
@@ -76,13 +64,7 @@ p.error-browser
                             <span class="Tabs-linkText" th:text="#{menu.search}"></span></a>
                     </div>
                     <br>
-                    <!--                        <div></div>-->
-                    <!--                    <div th:text="#{menu.language}"></div>-->
-                    <!--                    <select id="locales">-->
-                    <!--                        <option value=" "></option>-->
-                    <!--                        <option value="en">English</option>-->
-                    <!--                        <option value="ru">Русский</option>-->
-                    <!--                    </select>-->
+
                 </div>
                 <div class="Tabs-wrap">
                     <div class="Tabs-block" id="dashboard">
@@ -165,7 +147,6 @@ p.error-browser
                                   data-sendlimit="10">
                                 <div class="form-group">
                                     <div class="form-selectWrap">
-                                        <!-- - var options = setOptions(items, ['value', 'selected', 'disabled']);-->
                                         <select class="form-select" name="site">
                                             <option value="" selected="selected" th:text="#{search.allSites}">
                                             </option>
@@ -187,11 +168,9 @@ p.error-browser
                                 </strong>
                                 <div class="SearchResult-content">
                                 </div>
-<!--                                <div class="HiddenElem" id="footerButtonText"-->
-<!--                                     th:text="#{search.showMore}">Show more-->
-<!--                                </div>-->
                                 <div class="SearchResult-footer SearchResult-footer_hide">
-                                    <button class="btn btn_primary" data-send="search" data-sendtype="next">Show more<span class="SearchResult-remain">(0)</span>
+                                    <button class="btn btn_primary" data-send="search" data-sendtype="next">Show
+                                        more<span class="SearchResult-remain">(0)</span>
                                     </button>
                                 </div>
                             </div>
@@ -203,7 +182,5 @@ p.error-browser
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!--<script src="https://malsup.github.io/jquery.form.js"></script>-->
-<!--<script src="https://cdn.jsdelivr.net/npm/jquery.maskedinput@1.4.1/src/jquery.maskedinput.min.js" type="text/javascript"></script>-->
 </body>
 </html>

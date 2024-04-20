@@ -33,9 +33,7 @@ public class Lemmatizator {
                 continue;
             }
             List<String> lemmas = processOneWord(word);
-            for (String lemma : lemmas) {
-                result.add(lemma);
-            }
+            result.addAll(lemmas);
         }
         return result;
     }
@@ -49,11 +47,13 @@ public class Lemmatizator {
             try {
                 infos = russianMorphology.getMorphInfo(word);
             } catch (Exception e) {
+                e.printStackTrace();
             }
-        } else if (word.matches("[a-z]+")){
+        } else if (word.matches("[a-z]+")) {
             try {
                 infos = englishMorphology.getMorphInfo(word);
             } catch (Exception e) {
+                e.printStackTrace();
             }
         }
         for (String info : infos) {
