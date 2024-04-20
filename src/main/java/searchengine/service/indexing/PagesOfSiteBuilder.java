@@ -50,7 +50,7 @@ public class PagesOfSiteBuilder extends RecursiveAction {
 
     private void takeABreak(int pauseInMsec) {
         Site site = node.getSite();
-        synchronized (site) {
+      //  synchronized (site) {
             long now = System.currentTimeMillis();
             if (now - site.getLastPageReadingTime() >= pauseInMsec) {
                 site.setLastPageReadingTime(now);
@@ -63,7 +63,7 @@ public class PagesOfSiteBuilder extends RecursiveAction {
                 throw new RuntimeException(e);
             }
             site.setLastPageReadingTime(System.currentTimeMillis());
-        }
+     //  }
     }
 
     public static void build(Site site) {
